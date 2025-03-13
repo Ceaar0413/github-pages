@@ -1,0 +1,87 @@
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+
+# Configurações de E-mail
+email_remetente = 'seuemail@gmail.com'
+senha_remetente = 'suasenha'  # Recomendo usar uma senha de app, caso tenha o 2FA ativo
+email_destinatario = 'emaildestinatario@example.com'
+
+# Configuração do Servidor SMTP (Gmail)
+smtp_server = 'smtp.gmail.com'
+smtp_port = 587
+
+# Criar a mensagem do e-mail
+assunto = 'Oferta Especial para Você'
+corpo_email = 'Olá! Não perca nossa super oferta de hoje!'
+
+msg = MIMEMultipart()
+msg['From'] = email_remetente
+msg['To'] = email_destinatario
+msg['Subject'] = assunto
+msg.attach(MIMEText(corpo_email, 'plain'))
+
+# Enviar o e-mail
+try:
+    server = smtplib.SMTP(smtp_server, smtp_port)
+    server.starttls()
+    server.login(email_remetente, senha_remetente)
+    texto = msg.as_string()
+    server.sendmail(email_remetente, email_destinatario, texto)
+    print("E-mail enviado com sucesso!")
+except Exception as e:
+    print(f"Falha ao enviar o e-mail: {e}")
+finally:
+    server.quit()
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Exemplo de dados de tráfego do site (como visitas diárias)
+dados_trafego = {
+    'Data': ['2025-03-01', '2025-03-02', '2025-03-03', '2025-03-04', '2025-03-05'],
+    'Visitas': [120, 150, 180, 200, 250]
+}
+
+df = pd.DataFrame(dados_trafego)
+df['Data'] = pd.to_datetime(df['Data'])
+
+# Análise simples (média de visitas)
+media_visitas = df['Visitas'].mean()
+print(f"Média de visitas: {media_visitas}")
+
+# Visualização dos dados
+plt.plot(df['Data'], df['Visitas'], marker='o')
+plt.title('Visitas Diárias do Site')
+plt.xlabel('Data')
+plt.ylabel('Visitas')
+plt.xticks(rotation=45)
+plt.grid(True)
+plt.show()
+import requests
+
+def buscar_palavra_chave(url, palavra_chave):
+    resposta = requests.get(url)
+    conteudo = resposta.text
+    ocorrencias = conteudo.lower().count(palavra_chave.lower())
+    return ocorrencias
+
+url = 'https://www.seusite.com.br'
+palavra_chave = 'marketing digital'
+
+ocorrencias = buscar_palavra_chave(url, palavra_chave)
+print(f'A palavra-chave "{palavra_chave}" aparece {ocorrencias} vezes no site.')
+pip install tweepy
+import tweepy
+
+# Substitua pelos seus dados da API do Twitter
+consumer_key = 'sua_consumer_key'
+consumer_secret = 'seu_consumer_secret'
+access_token = 'seu_access_token'
+access_token_secret = 'seu_access_token_secret'
+
+auth = tweepy.OAuth1UserHandler(consumer_key, consumer_secret, access_token, access_token_secret)
+api = tweepy.API(auth)
+
+# Postar uma mensagem no Twitter
+api.update_status("Promoção imperdível! Venha conferir nosso site para mais detalhes.")
+print("Tweet enviado com sucesso!")
